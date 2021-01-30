@@ -1,0 +1,21 @@
+<div class="anchura altura d-flex align-items-center justify-content-center">
+    <form class="border border-1 rounded p-4 formulario" [formGroup]='loginForm' (ngSubmit)="login()">
+        <div class="alert alert-danger" role="alert" [ngClass]="[visible]">
+            {{mensaje}}
+        </div>
+        <div class="mb-3">
+            <label for="loginEmail" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp"
+                formControlName="correo">
+            <div id="emailHelp" class="form-text">No compartas tus credenciales</div>
+        </div>
+        <div class="mb-3">
+            <label for="loginPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="loginPassword" formControlName="password">
+        </div>
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </div>
+        <a routerLink="/register">Crear nuevo usuario</a>
+    </form>
+</div>

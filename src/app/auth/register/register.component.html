@@ -1,0 +1,36 @@
+<div class="anchura altura d-flex align-items-center justify-content-center">
+    <form class="border border-1 rounded p-4 formulario" [formGroup]='usuarioForm' (ngSubmit)="registrar()">
+        <div class="alert alert-danger" role="alert" [ngClass]="[visible]">
+            {{mensaje}}
+        </div>
+        <div class=" mb-3">
+            <label for="registerNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="registerNombre" aria-describedby="nombreHelp"
+                formControlName="nombre">
+        </div>
+        <div class="mb-3">
+            <label for="registerApellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="registerApellido" aria-describedby="apellidoHelp"
+                formControlName="apellido">
+        </div>
+        <div class="mb-3">
+            <label for="registerFechaNacimiento" class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="registerFechaNacimiento" aria-describedby="fechaNacimientoHelp"
+                formControlName="fecha_nacimiento">
+        </div>
+        <div class="mb-3">
+            <label for="registerCorreo" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="registerCorreo" aria-describedby="emailHelp"
+                formControlName="correo">
+            <div id="registerEmailHelp" class="form-text">No compartas tus credenciales</div>
+        </div>
+        <div class="mb-3">
+            <label for="registerPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="registerPassword" formControlName="password">
+        </div>
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+        <a routerLink="/login">Ya tengo usuario</a>
+    </form>
+</div>

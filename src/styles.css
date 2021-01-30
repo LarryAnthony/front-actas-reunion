@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0px !important;
+    margin-left: calc(var(--bs-gutter-x) / -2);
+}
+
+.row > * {
+    max-width: 100%;
+    padding-right: 0px !important;
+    padding-left: calc(var(--bs-gutter-x) / 2);
+    margin-top: var(--bs-gutter-y);
+}
+
+.form-select {
+    width: auto !important;
+}
+
+#acuerdo .table {
+    vertical-align: middle !important;
+}
+
+.altura {
+    height: 100vh;
+}
+
+.anchura {
+    width: 100%;
+}
+
+.formulario {
+    width: 350px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+#ingresarAcuerdo .form-select,
+#ingresarUsuario .form-select {
+    width: 100% !important;
+}
+#exampleModal .formulario,
+#exampleModal2 .formulario,
+#exampleModal3 .formulario {
+    width: 100%;
+}
+
+#boton-proyecto .fas {
+    line-height: inherit !important;
+}
+#boton-proyecto a {
+    color: black;
+}
