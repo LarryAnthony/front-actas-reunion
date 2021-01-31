@@ -69,6 +69,7 @@ export class PrincipalService {
     return this.http.post(URL, { token })
       .pipe(map((resp: any) => {
         this.id_usuario = resp.id_usuario;
+        localStorage.setItem('token', resp.token);
         return resp;
       }));
   }
@@ -79,6 +80,9 @@ export class PrincipalService {
     return this.http.post(URL, { token })
       .pipe(map((resp: any) => {
         this.id_usuario = resp.id_usuario;
+        if (!resp) {
+          return false
+        }
         return true;
       }), catchError(error => of(false)));
   }
