@@ -169,10 +169,10 @@
                                         </select>
                                     </div>
                                     <div class="d-block mb-3">
-                                        <label for="exampleInputFecha" class="form-label">Fecha límite</label>
-                                        <input type="date" class="form-control" id="exampleInputFecha"
-                                            aria-describedby="fechaHelp" formControlName="fecha_limite">
-                                        <div id="fechaHelp" class="form-text"></div>
+                                        <label for="exampleInputFecha1" class="form-label">Fecha límite</label>
+                                        <input type="date" class="form-control" id="exampleInputFecha1"
+                                            aria-describedby="fechaHelp1" formControlName="fecha_limite">
+                                        <div id="fechaHelp1" class="form-text"></div>
                                     </div>
                                     <select class="form-select mb-3" aria-label="Default select example"
                                         (change)="cambiarEstado($event)">
@@ -199,11 +199,11 @@
 
 
 <!-- Modal proyecto nuevo -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear proyectos</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Crear proyectos</h5>
                 <button type="button" (click)="borrarDatosProyecto()" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -217,16 +217,16 @@
                         {{mensajeProyectoCreado}}
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputNombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="exampleInputNombre" aria-describedby="nombreHelp"
+                        <label for="exampleInputNombre1" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="exampleInputNombre1" aria-describedby="nombreHelp1"
                             formControlName="nombre">
-                        <div id="nombreHelp" class="form-text"></div>
+                        <div id="nombreHelp1" class="form-text"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputFecha" class="form-label">Fecha de inicio</label>
-                        <input type="date" class="form-control" id="exampleInputFecha" aria-describedby="fechaHelp"
+                        <label for="exampleInputFecha2" class="form-label">Fecha de inicio</label>
+                        <input type="date" class="form-control" id="exampleInputFecha2" aria-describedby="fechaHelp2"
                             formControlName="fecha_inicio">
-                        <div id="fechaHelp" class="form-text"></div>
+                        <div id="fechaHelp2" class="form-text"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Crear</button>
                     <button type="button" class="btn btn-secondary mx-2" (click)="borrarDatosProyecto()"
@@ -242,7 +242,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar proyectos</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">Actualizar proyectos</h5>
                 <button type="button" (click)="borrarDatosProyecto()" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -256,18 +256,18 @@
                         {{mensajeProyectoCreado}}
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputNombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="exampleInputNombre" aria-describedby="nombreHelp"
+                        <label for="exampleInputNombre2" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="exampleInputNombre2" aria-describedby="nombreHelp2"
                             formControlName="nombre">
-                        <div id="nombreHelp" class="form-text"></div>
+                        <div id="nombreHelp2" class="form-text"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputFecha" class="form-label">Fecha de inicio</label>
-                        <input type="date" class="form-control" id="exampleInputFecha" aria-describedby="fechaHelp"
+                        <label for="exampleInputFecha3" class="form-label">Fecha de inicio</label>
+                        <input type="date" class="form-control" id="exampleInputFecha3" aria-describedby="fechaHelp3"
                             formControlName="fecha_inicio">
-                        <div id="fechaHelp" class="form-text"></div>
+                        <div id="fechaHelp3" class="form-text"></div>
                     </div>
-                    <label for="exampleInputFecha" class="form-label">Activo</label>
+                    <label for="SwitchCheckChecked" class="form-label">Activo</label>
                     <div class="form-check form-switch mb-3">
                         <input formControlName="estado" class="form-check-input" type="checkbox" id="SwitchCheckChecked"
                             checked>
@@ -288,7 +288,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar acuerdo</h5>
+                <h5 class="modal-title" id="exampleModalLabel3">Actualizar acuerdo</h5>
                 <button type="button" (click)="borrarDatosAcuerdo()" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -309,9 +309,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputFecha" class="form-label">Fecha límite</label>
-                        <input type="date" class="form-control" id="exampleInputFecha" aria-describedby="fechaHelp"
+                        <input type="date" class="form-control" id="exampleInputFecha" aria-describedby="fechaHelp4"
                             formControlName="fecha_limite">
-                        <div id="fechaHelp" class="form-text"></div>
+                        <div id="fechaHelp4" class="form-text"></div>
                     </div>
                     <div class="d-block">
                         <select class="form-select mb-3" aria-label="Default select example"

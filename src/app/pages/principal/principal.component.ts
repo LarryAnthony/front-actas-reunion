@@ -309,10 +309,11 @@ export class PrincipalComponent implements OnInit {
 
   enviarCorreo() {
     const cuerpo = this.tablaPendientes.nativeElement.innerHTML;
+    const proyectoNombre = this.proyectoForm.value.nombre;
     const usuariosCorreo = this.usuariosProyecto.map(function (correo) {
       return correo.correo
     }).join(',');
-    this.principalService.enviarCorreo(usuariosCorreo, cuerpo)
+    this.principalService.enviarCorreo(usuariosCorreo, cuerpo, proyectoNombre)
       .subscribe(resp => {
         Swal.fire(
           'Correo enviado',

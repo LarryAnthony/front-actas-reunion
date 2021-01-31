@@ -163,11 +163,11 @@ export class PrincipalService {
       }))
   }
 
-  enviarCorreo(correos: string, cuerpo: string) {
+  enviarCorreo(correos: string, cuerpo: string, proyectoNombre: string) {
     const URL = `${this.url}/email`;
     const fecha = new Date();
     const fechaFormato = `${fecha.getDate()}-${fecha.getMonth() + 1}-${fecha.getFullYear()}`
-    const asunto = `Acta de reunión ${fechaFormato}`
+    const asunto = `Acta de reunión del proyecto ${proyectoNombre} - ${fechaFormato}`
     return this.http.post(URL, { asunto: asunto, remitentes: correos, cuerpo: cuerpo }, this.headers)
       .pipe(map(resp => {
         return resp;
