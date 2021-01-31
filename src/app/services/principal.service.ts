@@ -154,6 +154,7 @@ export class PrincipalService {
   }
 
   actualizarAcuerdo(formData: AcuerdoForm) {
+    console.log(formData.fecha_limite);
     const id_acuerdo = localStorage.getItem('acuerdo');
     const URL = `${this.url}/acuerdo/${id_acuerdo}`;
 
