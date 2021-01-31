@@ -36,7 +36,12 @@ export class PrincipalService {
     return this.http.get(URL, this.headers)
       .pipe(map((resp: any) => resp.data));
   }
-
+  obtenerAcuerdosRestantes() {
+    const project = localStorage.getItem('project');
+    const URL = `${this.url}/acuerdo-restante/${project}`;
+    return this.http.get(URL, this.headers)
+      .pipe(map((resp: any) => resp.data));
+  }
   obtenerProyectosPorUsuario(id: number) {
     const URL = `${this.url}/proyectos/${id}`;
     return this.http.get(URL, this.headers)
@@ -48,6 +53,12 @@ export class PrincipalService {
   obtenerUsuariosProyecto() {
     const project = localStorage.getItem('project');
     const URL = `${this.url}/usuario-proyecto/${project}`;
+    return this.http.get(URL, this.headers)
+      .pipe(map((resp: any) => resp.data));
+  }
+  obtenerUsuariosProyectoActivos() {
+    const project = localStorage.getItem('project');
+    const URL = `${this.url}/usuario-proyecto-activos/${project}`;
     return this.http.get(URL, this.headers)
       .pipe(map((resp: any) => resp.data));
   }
@@ -143,6 +154,17 @@ export class PrincipalService {
     const URL = `${this.url}/acuerdo/${id_acuerdo}`;
 
     return this.http.put(URL, formData, this.headers)
+      .pipe(map(resp => {
+        return resp;
+      }))
+  }
+
+  enviarCorreo(correos: string, cuerpo: string) {
+    const URL = `${this.url}/email`;
+    const fecha = new Date();
+    const fechaFormato = `${fecha.getDate()}-${fecha.getMonth() + 1}-${fecha.getFullYear()}`
+    const asunto = `Acta de reunión ${fechaFormato}`
+    return this.http.post(URL, { asunto: asunto, remitentes: correos, cuerpo: cuerpo }, this.headers)
       .pipe(map(resp => {
         return resp;
       }))

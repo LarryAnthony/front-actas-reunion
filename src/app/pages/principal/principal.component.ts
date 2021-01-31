@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Acuerdo } from 'src/app/model/acuerdo.model';
@@ -8,6 +8,7 @@ import { PrincipalService } from 'src/app/services/principal.service';
 import { Usuario } from 'src/app/model/usuario.model';
 import { formatDate } from '@angular/common'
 import { delay } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 declare function customInitFunction();
 @Component({
   selector: 'app-principal',
@@ -16,6 +17,9 @@ declare function customInitFunction();
   ]
 })
 export class PrincipalComponent implements OnInit {
+
+  @ViewChild('tablaPendientes') tablaPendientes: ElementRef;
+
   public proyectoForm = this.fb.group({
     nombre: ['', [Validators.required]],
     fecha_inicio: ["", [Validators.required]],
@@ -56,6 +60,10 @@ export class PrincipalComponent implements OnInit {
   public visibleAcuerdo: string = 'd-none';
   public visibleAcuerdoCreado: string = 'd-none';
   public mensajeAcuerdoCreado: string;
+  public activoUsuario = {};
+  public allUsuario = {};
+  public restoAcuerdos = {};
+  public allAcuerdo = {};
 
 
 
@@ -72,13 +80,11 @@ export class PrincipalComponent implements OnInit {
   cambiarProyecto(valor) {
     localStorage.setItem('project', valor.target.value);
     this.obtenerAcuerdos();
-    this.obtenerUsuariosProyecto();
+    this.obtenerUsuariosProyectoActivos();
     this.cargarProyecto();
     if (valor.target.value.length > 10) {
-      console.log('texto', valor.target.value)
       this.botonEditarProyecto = 'd-none';
     } else {
-      console.log('number', valor.target.value)
       this.botonEditarProyecto = 'd-flex'
     }
   }
@@ -91,6 +97,8 @@ export class PrincipalComponent implements OnInit {
     this.principalService.obtenerAcuerdos()
       .subscribe(resp => {
         this.acuerdos = resp;
+        this.restoAcuerdos = { 'color': 'black' };
+        this.allAcuerdo = { 'background-color': '#E9E7E7', 'color': 'black' };
         this.visible = 'd-none';
       }, (err) => {
         this.mensaje = err.error.msg;
@@ -98,6 +106,20 @@ export class PrincipalComponent implements OnInit {
         this.acuerdos = [];
       });
   }
+  obtenerAcuerdosRestantes() {
+    this.principalService.obtenerAcuerdosRestantes()
+      .subscribe(resp => {
+        this.acuerdos = resp;
+        this.restoAcuerdos = { 'background-color': '#E9E7E7', 'color': 'black' };
+        this.allAcuerdo = { 'color': 'black' };
+        this.visible = 'd-none';
+      }, (err) => {
+        this.mensaje = err.error.msg;
+        this.visible = '';
+        this.acuerdos = [];
+      });
+  }
+
   obtenerProyectosPorUsuario() {
     this.principalService.obtenerProyectosPorUsuario(this.id_usuario)
       .subscribe((resp: any) => {
@@ -109,6 +131,21 @@ export class PrincipalComponent implements OnInit {
     this.principalService.obtenerUsuariosProyecto()
       .subscribe(resp => {
         this.usuariosProyecto = resp;
+        this.activoUsuario = { 'color': 'black' };
+        this.allUsuario = { 'background-color': '#E9E7E7', 'color': 'black' };
+        this.visible = 'd-none';
+      }, (err) => {
+        this.mensaje = err.error.msg;
+        this.visible = '';
+        this.usuariosProyecto = [];
+      });
+  }
+  obtenerUsuariosProyectoActivos() {
+    this.principalService.obtenerUsuariosProyectoActivos()
+      .subscribe(resp => {
+        this.usuariosProyecto = resp;
+        this.activoUsuario = { 'background-color': '#E9E7E7', 'color': 'black' };
+        this.allUsuario = { 'color': 'black' };
         this.visible = 'd-none';
       }, (err) => {
         this.mensaje = err.error.msg;
@@ -265,9 +302,30 @@ export class PrincipalComponent implements OnInit {
 
   incluirIdAcuerdoLS(acuerdo) {
     localStorage.setItem('acuerdo', acuerdo.id_acuerdo);
-    acuerdo.fecha_limite = formatDate(acuerdo.fecha_limite.toString(), 'yyyy-MM-dd', 'en')
+    // acuerdo.fecha_limite = formatDate(acuerdo.fecha_limite.toString(), 'yyyy-MM-dd', 'en')
     acuerdo.id_usuario = parseInt(acuerdo.id_usuario);
-    this.acuerdoForm.setValue({ detalle: acuerdo.detalle, fecha_limite: acuerdo.fecha_limite, estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario });
+    this.acuerdoForm.setValue({ detalle: acuerdo.detalle, fecha_limite: formatDate(acuerdo.fecha_limite.toString(), 'yyyy-MM-dd', 'en'), estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario });
+  }
+
+  enviarCorreo() {
+    const cuerpo = this.tablaPendientes.nativeElement.innerHTML;
+    const usuariosCorreo = this.usuariosProyecto.map(function (correo) {
+      return correo.correo
+    }).join(',');
+    this.principalService.enviarCorreo(usuariosCorreo, cuerpo)
+      .subscribe(resp => {
+        Swal.fire(
+          'Correo enviado',
+          'Se envió el acta a los usuarios',
+          'success'
+        )
+      }, (error) => {
+        Swal.fire(
+          'Correo enviado',
+          error.error.msg,
+          'error'
+        )
+      });
   }
 
 }

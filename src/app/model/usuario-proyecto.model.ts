@@ -5,6 +5,7 @@ export class UsuarioProyecto {
         public estado: boolean,
         public nombre: string,
         public apellido: string,
+        public correo: string,
         public id_usuario_proyecto?: number
     ) { }
 }
