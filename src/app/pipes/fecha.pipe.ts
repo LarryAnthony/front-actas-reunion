@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -7,11 +8,10 @@ export class FechaPipe implements PipeTransform {
 
   transform(fecha: Date): string {
     let fechaCorrecta = new Date(fecha);
-    const dia = fechaCorrecta.getDate();
-    const mes = fechaCorrecta.getMonth() + 1;
-    const year = fechaCorrecta.getFullYear();
-    const fechaTransfor = `${dia}/${mes}/${year}`
-    return fechaTransfor;
+
+    let nuevaFecha = new Date(fechaCorrecta).setDate((new Date(fechaCorrecta)).getDate() + 1);
+    let nuevaFecha2 = formatDate(nuevaFecha, 'dd-MM-yyyy', 'es-ES');
+    return nuevaFecha2;
   }
 
 }

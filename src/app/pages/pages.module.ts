@@ -6,6 +6,11 @@ import { PipesModule } from '../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LOCALE_ID } from '@angular/core';
+import es from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(es);
 
 
 
@@ -25,6 +30,9 @@ import { HttpClientModule } from '@angular/common/http';
   exports: [
     PrincipalComponent,
     UsuariosComponent
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-ES' }
   ]
 })
 export class PagesModule { }

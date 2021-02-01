@@ -265,7 +265,8 @@ export class PrincipalComponent implements OnInit {
       )
       .subscribe(resp => {
         let { nombre, fecha_inicio, estado } = resp.data[0];
-        fecha_inicio = formatDate(fecha_inicio.toString(), 'yyyy-MM-dd', 'en')
+        fecha_inicio = new Date(fecha_inicio).setDate((new Date(fecha_inicio)).getDate() + 1);
+        fecha_inicio = formatDate(new Date(fecha_inicio), 'yyyy-MM-dd', 'es-ES');
         this.proyectoForm.setValue({ nombre, fecha_inicio, estado })
       }, (error) => {
 
@@ -302,31 +303,33 @@ export class PrincipalComponent implements OnInit {
 
   incluirIdAcuerdoLS(acuerdo) {
     localStorage.setItem('acuerdo', acuerdo.id_acuerdo);
-    // acuerdo.fecha_limite = formatDate(acuerdo.fecha_limite.toString(), 'yyyy-MM-dd', 'en')
+    acuerdo.fecha_limite = new Date(acuerdo.fecha_limite).setDate((new Date(acuerdo.fecha_limite)).getDate() + 1);
+    acuerdo.fecha_limite = formatDate(new Date(acuerdo.fecha_limite), 'yyyy-MM-dd', 'es-ES');
     acuerdo.id_usuario = parseInt(acuerdo.id_usuario);
-    this.acuerdoForm.setValue({ detalle: acuerdo.detalle, fecha_limite: formatDate(acuerdo.fecha_limite.toString(), 'yyyy-MM-dd', 'en'), estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario });
-  }
+    this.acuerdoForm.setValue({ detalle: acuerdo.detalle, fecha_limite: acuerdo.fecha_limite, estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario
+  });
+}
 
-  enviarCorreo() {
-    const cuerpo = this.tablaPendientes.nativeElement.innerHTML;
-    const proyectoNombre = this.proyectoForm.value.nombre;
-    const usuariosCorreo = this.usuariosProyecto.map(function (correo) {
-      return correo.correo
-    }).join(',');
-    this.principalService.enviarCorreo(usuariosCorreo, cuerpo, proyectoNombre)
-      .subscribe(resp => {
-        Swal.fire(
-          'Correo enviado',
-          'Se envió el acta a los usuarios',
-          'success'
-        )
-      }, (error) => {
-        Swal.fire(
-          'Correo enviado',
-          error.error.msg,
-          'error'
-        )
-      });
-  }
+enviarCorreo() {
+  const cuerpo = this.tablaPendientes.nativeElement.innerHTML;
+  const proyectoNombre = this.proyectoForm.value.nombre;
+  const usuariosCorreo = this.usuariosProyecto.map(function (correo) {
+    return correo.correo
+  }).join(',');
+  this.principalService.enviarCorreo(usuariosCorreo, cuerpo, proyectoNombre)
+    .subscribe(resp => {
+      Swal.fire(
+        'Correo enviado',
+        'Se envió el acta a los usuarios',
+        'success'
+      )
+    }, (error) => {
+      Swal.fire(
+        'Correo enviado',
+        error.error.msg,
+        'error'
+      )
+    });
+}
 
 }

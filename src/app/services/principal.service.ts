@@ -6,6 +6,7 @@ import { ProyectoForm } from '../interfaces/proyecto.interface';
 import { AcuerdoForm } from '../interfaces/acuerdo.interface';
 import { UsuarioProyectoForm } from '../interfaces/usuario-proyecto.interface';
 import { Observable, of } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,9 @@ export class PrincipalService {
     const project = localStorage.getItem('project');
     const URL = `${this.url}/acuerdo/${project}`;
     return this.http.get(URL, this.headers)
-      .pipe(map((resp: any) => resp.data));
+      .pipe(map((resp: any) => {
+        return resp.data
+      }));
   }
   obtenerAcuerdosRestantes() {
     const project = localStorage.getItem('project');
@@ -154,7 +157,6 @@ export class PrincipalService {
   }
 
   actualizarAcuerdo(formData: AcuerdoForm) {
-    console.log(formData.fecha_limite);
     const id_acuerdo = localStorage.getItem('acuerdo');
     const URL = `${this.url}/acuerdo/${id_acuerdo}`;
 
