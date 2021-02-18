@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+.titulo {
+    display: inline-block;
+    width: 100%;
+}
+.cerrar {
+    position: fixed;
+    top: 8.2px;
+    right: 5px;
+}
+
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
