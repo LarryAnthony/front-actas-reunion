@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" class="cabecera">
     <nav class="titulo navbar navbar-dark bg-dark">
         <div class="d-flex justify-content-center">
             <h2 class="text-white text-center">Acta de reunión</h2>
@@ -29,7 +29,12 @@
         <button class=" btn btn-primary" (click)="enviarCorreo()">Enviar Correo</button>
     </div>
     <div class="row mt-3">
-        <div class="col-12 col-md-5 col-lg-4">
+        <div id="lateral">
+            <div class="lateral-icon">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+        </div>
+        <div id="integrantes" class="col-12 col-md-5 col-lg-4">
             <div class="text-center border border-2 rounded mb-3 mx-md-1 p-2">
                 <h3>Integrantes</h3>
                 <div class="alert alert-danger" role="alert" [ngClass]="[visible]">
@@ -69,7 +74,7 @@
                 <div class="mt-2 d-flex justify-content-end mb-3">
                     <i id="nuevoUsuario" class="fas fa-user-plus cursor"></i>
                 </div>
-                <div id="ingresarUsuario" class="d-none">
+                <div id="ingresarUsuario">
                     <div class="card card-body">
                         <div class="mx-5 mb-5 d-flex">
                             <form class="w-100" [formGroup]='usuarioProyectoForm' (ngSubmit)="crearUsuarioProyecto()">
@@ -79,13 +84,21 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-10">
-                                            <select (change)=seleccionarUsuario($event) class="form-select"
+                                            <input list="usuarioslista" (change)=seleccionarUsuario($event)>
+                                            <datalist id="usuarioslista">
+                                                <option
+                                                    [value]="usuario.nombre + ' ' + usuario.apellido + ' - ' + usuario.correo"
+                                                    *ngFor="let usuario of usuarios">
+                                                    {{usuario.nombre}} {{usuario.apellido}}
+                                                </option>
+                                            </datalist>
+                                            <!-- <select (change)=seleccionarUsuario($event) class="form-select"
                                                 aria-label="Default select example">
                                                 <option selected>Seleccione integrante</option>
                                                 <option [value]="usuario.id_usuario" *ngFor="let usuario of usuarios">
-                                                    {{usuario.nombre}}
+                                                    {{usuario.nombre}} {{usuario.apellido}}
                                                 </option>
-                                            </select>
+                                            </select> -->
                                         </div>
                                         <div class="col-2">
                                             <button class="btn btn-primary" type="submit">
@@ -147,7 +160,7 @@
                 <div class="mt-2 d-flex justify-content-end mb-3">
                     <i id="nuevoAcuerdo" class="fas fa-plus cursor"></i>
                 </div>
-                <div id="ingresarAcuerdo" class="d-none">
+                <div id="ingresarAcuerdo">
                     <div class="card card-body  mb-5">
                         <div class="text-start px-4 mb-5">
                             <div class="border border-1 rounded p-2 mb-5">

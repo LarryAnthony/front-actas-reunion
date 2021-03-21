@@ -79,7 +79,7 @@ export class PrincipalComponent implements OnInit {
   }
   cambiarProyecto(valor) {
     localStorage.setItem('project', valor.target.value);
-    this.obtenerAcuerdos();
+    this.obtenerAcuerdosRestantes();
     this.obtenerUsuariosProyectoActivos();
     this.cargarProyecto();
     if (valor.target.value.length > 10) {
@@ -206,10 +206,16 @@ export class PrincipalComponent implements OnInit {
     this.principalService.obtenerUsuarios()
       .subscribe(resp => {
         this.usuarios = resp;
+        console.log(this.usuarios);
       })
   }
   seleccionarUsuario(valor) {
-    this.usuarioLista = valor.target.value
+    const usuarioFiltro = this.usuarios.filter(u => valor.target.value === u.nombre_apellido);
+    if (usuarioFiltro.length > 0) {
+      this.usuarioLista = usuarioFiltro[0].id_usuario;
+    } else {
+      this.usuarioLista = 0;
+    }
   }
 
   cambiarResponsable(id) {
@@ -228,7 +234,7 @@ export class PrincipalComponent implements OnInit {
       .subscribe((resp: any) => {
         this.acuerdoForm.setValue({ detalle: '', fecha_limite: '', estado: '', fecha_creacion: '', id_usuario: '' });
         // this.validarToken();
-        this.obtenerAcuerdos();
+        this.obtenerAcuerdosRestantes();
         this.visibleAcuerdo = 'd-none';
         this.mensajeAcuerdo = '';
       }, (error) => {
@@ -306,30 +312,31 @@ export class PrincipalComponent implements OnInit {
     acuerdo.fecha_limite = new Date(acuerdo.fecha_limite).setDate((new Date(acuerdo.fecha_limite)).getDate() + 1);
     acuerdo.fecha_limite = formatDate(new Date(acuerdo.fecha_limite), 'yyyy-MM-dd', 'es-ES');
     acuerdo.id_usuario = parseInt(acuerdo.id_usuario);
-    this.acuerdoForm.setValue({ detalle: acuerdo.detalle, fecha_limite: acuerdo.fecha_limite, estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario
-  });
-}
-
-enviarCorreo() {
-  const cuerpo = this.tablaPendientes.nativeElement.innerHTML;
-  const proyectoNombre = this.proyectoForm.value.nombre;
-  const usuariosCorreo = this.usuariosProyecto.map(function (correo) {
-    return correo.correo
-  }).join(',');
-  this.principalService.enviarCorreo(usuariosCorreo, cuerpo, proyectoNombre)
-    .subscribe(resp => {
-      Swal.fire(
-        'Correo enviado',
-        'Se envió el acta a los usuarios',
-        'success'
-      )
-    }, (error) => {
-      Swal.fire(
-        'Correo enviado',
-        error.error.msg,
-        'error'
-      )
+    this.acuerdoForm.setValue({
+      detalle: acuerdo.detalle, fecha_limite: acuerdo.fecha_limite, estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario
     });
-}
+  }
+
+  enviarCorreo() {
+    const cuerpo = this.tablaPendientes.nativeElement.innerHTML;
+    const proyectoNombre = this.proyectoForm.value.nombre;
+    const usuariosCorreo = this.usuariosProyecto.map(function (correo) {
+      return correo.correo
+    }).join(',');
+    this.principalService.enviarCorreo(usuariosCorreo, cuerpo, proyectoNombre)
+      .subscribe(resp => {
+        Swal.fire(
+          'Correo enviado',
+          'Se envió el acta a los usuarios',
+          'success'
+        )
+      }, (error) => {
+        Swal.fire(
+          'Correo enviado',
+          error.error.msg,
+          'error'
+        )
+      });
+  }
 
 }

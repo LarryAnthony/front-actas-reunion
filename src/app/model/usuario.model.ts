@@ -5,8 +5,9 @@ export class Usuario {
         public apellido: string,
         public estado: boolean,
         public fecha_nacimiento: Date,
-        public password: string,
+        public nombre_apellido: string,
+        public password?: string,
         public id_usuario?: number,
-        public id_area?: number
+        public id_area?: number,
     ) { }
 }

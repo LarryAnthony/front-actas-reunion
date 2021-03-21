@@ -4,10 +4,22 @@
     display: inline-block;
     width: 100%;
 }
+
+#header {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+}
+
 .cerrar {
     position: fixed;
     top: 8.2px;
     right: 5px;
+}
+
+#content {
+    margin-top: 80px;
 }
 
 .cursor {
@@ -52,6 +64,17 @@
 
 .cursor {
     cursor: pointer;
+}
+#integrantes > div {
+    background-color: rgb(207, 207, 207);
+}
+#ingresarUsuario,
+#ingresarAcuerdo {
+    display: none;
+}
+
+.lateral-icon {
+    width: 10px;
 }
 
 #ingresarAcuerdo .form-select,
