@@ -76,12 +76,12 @@
                 </div>
                 <div id="ingresarUsuario">
                     <div class="card card-body">
-                        <div class="mx-5 mb-5 d-flex">
+                        <div class="mx-1 mx-xl-5 mb-5 d-flex">
                             <form class="w-100" [formGroup]='usuarioProyectoForm' (ngSubmit)="crearUsuarioProyecto()">
                                 <div class="alert alert-danger" role="alert" [ngClass]="[visibleUsuarioProyecto]">
                                     {{mensajeUsuarioProyecto}}
                                 </div>
-                                <div class="container">
+                                <div class="container container-input">
                                     <div class="row">
                                         <div class="col-10">
                                             <input list="usuarioslista" (change)=seleccionarUsuario($event)>
