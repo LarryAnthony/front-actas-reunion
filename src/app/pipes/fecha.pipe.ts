@@ -9,7 +9,8 @@ export class FechaPipe implements PipeTransform {
   transform(fecha: Date): string {
     let fechaCorrecta = new Date(fecha);
 
-    let nuevaFecha = new Date(fechaCorrecta).setDate((new Date(fechaCorrecta)).getDate() + 1);
+    // let nuevaFecha = new Date(fechaCorrecta).setDate((new Date(fechaCorrecta)).getDate() + 1);
+    let nuevaFecha = new Date(fechaCorrecta).setDate((new Date(fechaCorrecta)).getDate());
     let nuevaFecha2 = formatDate(nuevaFecha, 'dd-MM-yyyy', 'es-ES');
     return nuevaFecha2;
   }

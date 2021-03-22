@@ -206,7 +206,6 @@ export class PrincipalComponent implements OnInit {
     this.principalService.obtenerUsuarios()
       .subscribe(resp => {
         this.usuarios = resp;
-        console.log(this.usuarios);
       })
   }
   seleccionarUsuario(valor) {
@@ -271,7 +270,8 @@ export class PrincipalComponent implements OnInit {
       )
       .subscribe(resp => {
         let { nombre, fecha_inicio, estado } = resp.data[0];
-        fecha_inicio = new Date(fecha_inicio).setDate((new Date(fecha_inicio)).getDate() + 1);
+        // fecha_inicio = new Date(fecha_inicio).setDate((new Date(fecha_inicio)).getDate() + 1);
+        fecha_inicio = new Date(fecha_inicio).setDate((new Date(fecha_inicio)).getDate());
         fecha_inicio = formatDate(new Date(fecha_inicio), 'yyyy-MM-dd', 'es-ES');
         this.proyectoForm.setValue({ nombre, fecha_inicio, estado })
       }, (error) => {
@@ -299,7 +299,7 @@ export class PrincipalComponent implements OnInit {
         this.visibleAcuerdoCreado = 'd-flex';
         this.mensajeAcuerdoCreado = resp.msg;
         // this.validarToken();
-        this.obtenerAcuerdos();
+        this.obtenerAcuerdosRestantes();
       }, (error) => {
         this.mensajeAcuerdo = error.error.msg;
         this.visibleAcuerdo = '';
@@ -309,11 +309,14 @@ export class PrincipalComponent implements OnInit {
 
   incluirIdAcuerdoLS(acuerdo) {
     localStorage.setItem('acuerdo', acuerdo.id_acuerdo);
-    acuerdo.fecha_limite = new Date(acuerdo.fecha_limite).setDate((new Date(acuerdo.fecha_limite)).getDate() + 1);
-    acuerdo.fecha_limite = formatDate(new Date(acuerdo.fecha_limite), 'yyyy-MM-dd', 'es-ES');
+    // acuerdo.fecha_limite = new Date(acuerdo.fecha_limite).setDate((new Date(acuerdo.fecha_limite)).getDate()+1);
+    acuerdo.fecha_limite1 = new Date(acuerdo.fecha_limite).setDate((new Date(acuerdo.fecha_limite)).getDate());
+    acuerdo.fecha_limite1 = formatDate(new Date(acuerdo.fecha_limite1), 'yyyy-MM-dd', 'es-ES');
+    // let valor_fecha = new Date(acuerdo.fecha_limite).setDate((new Date(acuerdo.fecha_limite)).getDate());
+    // valor_fecha = formatDate(new Date(valor_fecha), 'yyyy-MM-dd', 'es-ES');
     acuerdo.id_usuario = parseInt(acuerdo.id_usuario);
     this.acuerdoForm.setValue({
-      detalle: acuerdo.detalle, fecha_limite: acuerdo.fecha_limite, estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario
+      detalle: acuerdo.detalle, fecha_limite: acuerdo.fecha_limite1, estado: acuerdo.estado, fecha_creacion: acuerdo.fecha_creacion, id_usuario: acuerdo.id_usuario
     });
   }
 
