@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  url: 'https://actas-meetings.herokuapp.com',
-  // url: 'http://localhost:3000'
+	production: true,
+	//   url: 'https://actas-meetings.herokuapp.com',
+	url: 'http://143.198.118.248:3001',
 };
