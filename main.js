@@ -1816,7 +1816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 const environment = {
     production: true,
-    url: 'http://localhost:3001',
+    url: 'http://143.198.118.248:3001',
 };
 
 
